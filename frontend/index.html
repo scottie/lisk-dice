@@ -1,0 +1,45 @@
+<html  ng-app="shiftdiceApp">
+	<head>
+		<title>LiskDice</title>
+		<base href="/">
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="cache-control" content="no-cache, no-store">
+		<meta http-equiv="pragma" content="no-cache">
+
+		<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+		<link rel="stylesheet" href="bower_components/bootstrap-material-design/dist/css/bootstrap-material-design.min.css">
+		<link rel="stylesheet" href="bower_components/bootstrap-material-design/dist/css/ripples.min.css">
+		<link rel="stylesheet" href="bower_components/angular-loading-bar/build/loading-bar.min.css" />
+		<link rel="stylesheet" href="bower_components/snackbarjs/dist/snackbar.min.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" href="css/font-awesome.min.css" />
+
+		<script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
+		<script type="text/javascript" src="bower_components/angular-simple-logger/dist/angular-simple-logger.min.js"></script>
+		<script type="text/javascript" src="bower_components/angular-route/angular-route.min.js"></script>
+		<script type="text/javascript" src="bower_components/angular-cookies/angular-cookies.min.js"></script>
+		<script type="text/javascript" src="bower_components/angular-gettext/dist/angular-gettext.min.js"></script>
+		<script type="text/javascript" src="bower_components/angular-loading-bar/build/loading-bar.min.js"></script>
+		<script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+		<script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="bower_components/bootstrap-material-design/dist/js/material.min.js"></script>
+		<script type="text/javascript" src="bower_components/bootstrap-material-design/dist/js/ripples.min.js"></script>
+		<script type="text/javascript" src="bower_components/snackbarjs/dist/snackbar.min.js"></script>		
+		<script type="text/javascript" src="bower_components/moment/min/moment.min.js"></script>		
+		<script type="text/javascript" src="js/app.js"></script>
+		<script type="text/javascript" src="js/controllers/home.js"></script>
+		<script type="text/javascript" src="js/controllers/login.js"></script>
+		<script type="text/javascript" src="js/controllers/signup.js"></script>
+		<script type="text/javascript" src="js/controllers/header.js"></script>
+	</head>
+	<body>
+		<div ng-include src="'views/header.html'"></div>
+		<div class="loading-box" id="loading-box"></div>
+		<div class="container-fluid fullwidth" ng-view class="view-frame"></div>
+		<div ng-include class="footer fullwidth" src="'views/footer.html'"></div>
+
+		<script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="bower_components/moment/min/moment.min.js"></script>
+	</body>
+</html>

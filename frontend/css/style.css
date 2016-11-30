@@ -1,0 +1,11 @@
+.navbar-shift {
+    background-color: #e70b3a;
+}
+
+.nav-tabs > .active {
+    background-color: #333;
+}
+
+.form-group {
+    margin: 0;
+}

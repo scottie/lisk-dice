@@ -1,0 +1,27 @@
+
+
+<nav class="navbar navbar-shift" ng-controller="HeaderCtrl">
+	<div class="container">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a href="/" class="navbar-brand">LiskDice</a>
+		</div>
+		<div class="navbar-collapse collapse navbar-responsive-collapse" id="navbar">
+			<ul class="nav navbar-nav">
+			</ul>
+			<ul class="nav navbar-nav navbar-right" ng-if="!logged">
+				<li ng-class="{ 'active': pagectrl == 'LoginCtrl' }"><a href="/login">Login</a></li>
+				<li ng-class="{ 'active': pagectrl == 'SignupCtrl' }"><a href="/signup">Signup</a></li>
+			</ul>
+			
+			
+			<ul class="nav navbar-nav navbar-right" ng-if="logged">
+				<li><a href="" ng-click="logout()"><i class="fa fa-sign-out"></i> Logout</a></li>
+			</ul>
+		</div>
+	</div>
+</div>

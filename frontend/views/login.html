@@ -1,0 +1,27 @@
+<div class="panel" style="width: 60%; margin-left: auto; margin-right: auto">
+	<div class="panel-body row">
+		<div class="col-md-3"></div>
+		<div class="col-md-6">
+				<h2>Login</h2>
+				<div class="alert alert-success" ng-if="justsign">Signup completed. You can now login.</div>
+				<div class="alert alert-danger" ng-if="error == 'EL1'">Invalid email password combination.</div>
+
+
+				<div class="form-group">
+					<input type="text" placeholder="Email" class="form-control" id="inputMail" ng-model="login.email" />
+				</div>
+				<div class="form-group">
+					<input type="password" placeholder="Password"  class="form-control" id="inputPassword" ng-model="login.password" />
+				</div>
+				<div class="form-group">
+					<label>
+						<input checked="" type="checkbox"> Remember me
+					</label>
+				</div>	
+				<div class="form-group" align="center">
+					<a class="btn btn-raised btn-primary" ng-click="loginDo()">Login</a>
+				</div>
+		</div>
+		<div class="col-md-3"></div>
+	</div>
+</div>

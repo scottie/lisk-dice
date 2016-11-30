@@ -1,0 +1,264 @@
+<!-- Withdraw Modal -->
+<div class="modal fade" id="withdrawModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Withdraw</h4>
+      </div>
+      <div class="modal-body">
+        <div class="alert alert-danger" ng-if="withdrawstat.status == 1">
+            <span ng-if="withdrawstat.error == 'E'"><strong>Generic error</strong> Try again later</span>
+            <span ng-if="withdrawstat.error == 'EW1'"><strong>Error!</strong> Amount too low (min is 5 LSK)</span>
+            <span ng-if="withdrawstat.error == 'EW2'"><strong>Error!</strong> Not enough balance</span>
+            <span ng-if="withdrawstat.error == 'EW3'"><strong>Error!</strong> Invalid address</span>
+        </div>
+        <div class="alert alert-success" ng-if="withdrawstat.status == 2">
+           <!-- <strong>Sent!</strong> <a href="https://explorer.shift.4miners.net/tx/{{withdrawstat.txid}}" target="_blank">{{withdrawstat.txid}}</a></span>-->
+            <strong>Sent!</strong> <a href="https://explorer.lisk.io/tx/{{withdrawstat.txid}}" target="_blank">{{withdrawstat.txid}}</a></span>
+        </div>
+        <div class="form-group">
+            <label for="inputWDAmount">Withdraw amount (minimum 5 LSK):</label>
+            <input id="inputWDAmount" class="form-control" ng-model="withdraw.amount" />
+        </div>
+        <div class="form-group">
+            <label for="inputWDAddr">Destination address:</label>
+            <input id="inputWDAddr" class="form-control" ng-model="withdraw.address" />
+        </div>
+        <i>A fee of 0.3 LSK will be deducted from withdraw amount</i>
+        <hr>
+        <h3>History</h3>
+        <div align="center" ng-if="withdraws.length == 0">
+            No withdraws yet.
+        </div>
+        <table class="table table-hover table-striped" ng-if="withdraws.length > 0">
+            <tr>
+                <th>Tx</th>
+                <th>Amount</th>
+                <th>Date</th>
+                <th>To</th>
+            </tr>
+            <tr ng-repeat="wd in withdraws">
+                <!--<td><a href="https://explorer.shift.4miners.net/tx/{{wd.txid}}" target="_blank">{{wd.txid}}</a></td>-->
+                <td><a href="https://explorer.lisk.io/tx/{{wd.txid}}" target="_blank">{{wd.txid}}</a></td>
+                <td>{{wd.amount}}</td>
+                <td>{{wd.date | date:'short'}}</td>
+                <td>{{wd.to}}</td>
+            </tr>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default btn-raised" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary btn-raised" ng-click="withdrawSend ()">Send withdraw</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Deposit Modal -->
+<div class="modal fade" id="depositModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Deposit</h4>
+      </div>
+      <div class="modal-body">
+        Send your LSK (5 minimum) to this address:
+        <div class="form-group">
+            <input class="form-control" ng-model="profile.deposit.lisk.address" readonly />
+        </div>
+        <br>
+        <div class="alert alert-danger"><strong>Warning!</strong> Send only one transaction to this address and not lower than 5.0 LSK; the address is regenerated after every deposit.</div>            
+        <hr>
+        <h3>History</h3>
+        <div align="center" ng-if="deposits.length == 0">
+            No deposits yet.
+        </div>
+        <table class="table table-hover table-striped" ng-if="deposits.length > 0">
+            <tr>
+                <th>Tx</th>
+                <th>Amount</th>
+                <th>Date</th>
+                <th>Status</th>
+            </tr>
+            <tr ng-repeat="dep in deposits">
+                <!--<td><a href="https://explorer.shift.4miners.net/tx/{{dep.txid}}" target="_blank">{{dep.txid}}</a></td>-->
+                <td><a href="https://explorer.lisk.io/tx/{{dep.txid}}" target="_blank">{{dep.txid}}</a></td>
+                <td>{{dep.amount}}</td>
+                <td>{{dep.date | date:'short'}}</td>
+                <td>
+                    <span ng-if="dep.confirmations < 30" class="label label-warning">
+                        Pending ({{dep.confirmations}}/30)
+                    </span>
+                    <span ng-if="dep.confirmations >= 30" class="label label-success">
+                        Confirmed
+                    </span>
+                </td>
+            </tr>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-info btn-raised" ng-click="depositReload()"><i class="fa fa-refresh"></i> Refresh</button>
+        <button type="button" class="btn btn-default btn-raised" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="container">
+    <div ng-if="!logged" class="panel" style="width: 75%; margin-left: auto; margin-right: auto">
+        <div class="panel-body">
+            <h1>Welcome to Lisk dice!</h1>
+            Signup / login now to play with the first dice for Lisk.
+            <br>
+            <a href="/login" class="btn btn-raised btn-lg btn-warning">Login</a>
+            <a href="/signup" class="btn btn-raised btn-lg btn-warning">Signup</a>
+        </div>
+    </div>
+
+    <div ng-if="logged" class="panel" style="width: 75%; margin-left: auto; margin-right: auto; padding-right: 25px; padding-left: 25px">
+        <div class="panel-body">
+        <div class="row">
+            <div class="col-md-6">
+                <a href="" class="btn btn-block btn-raised btn-info">Balance: {{balance}} LSK</a>
+            </div>
+            <div class="col-md-3">
+                <button ng-click="depositModal()" class="btn btn-block btn-raised btn-warning">Deposit</button>
+            </div>
+            <div class="col-md-3">
+                <button ng-click="withdrawModal()" class="btn btn-block btn-raised btn-danger">Withdraw</button>
+            </div>
+            <div class="col-md-7 form-group row">
+                <div class="col-md-1"><label for="inputBet" class="control-label">Bet</label></div>
+                <div class="col-md-4"><input type="text" ng-model="bet.amount" id="inputBet" class="form-control" /></div>
+                <div class="col-md-7">
+                    <div class="btn-group">
+                        <button ng-click="betAdjust ('half')" class="btn btn-sm btn-raised btn-warning">1/2</button>
+                        <button ng-click="betAdjust ('double')" class="btn btn-sm  btn-raised btn-warning">2x</button>
+                        <button ng-click="betAdjust ('full')" class="btn btn-sm  btn-raised btn-warning">max</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5 form-group row">
+                <div class="col-md-2"><label for="inputProfit" class="control-label">Profit</label></div>
+                <div class="col-md-10">
+                    <input type="text" ng-model="bet.profit" id="inputProfit" class="form-control" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 form-group">
+                <label for="inputPayout" class="control-label">Roll over</label>
+                <input type="text" ng-model="bet.limit" id="inputPayout" disabled class="form-control" />
+            </div>
+            <div class="col-md-4 form-group">
+                <label for="inputPayout" class="control-label">Payout</label>
+                <input type="text" ng-model="bet.payout" id="inputPayout" class="form-control" />
+            </div>
+            <div class="col-md-4 form-group">
+                <label for="inputPayout" class="control-label">Win chance</label>
+                <input type="text" ng-model="bet.chance" id="inputPayout" class="form-control" />
+            </div>
+
+
+            <div class="col-md-12 form-group" ng-if="auto.enabled">
+                <label for="inputAutoN" class="control-label">Number of bets</label>
+                <input type="text" ng-model="auto.number" id="inputAutoN" class="form-control" />
+            </div>
+
+            <div class="col-md-12">
+                <hr>
+            </div>
+
+            <div class="col-md-8">
+                        <button ng-if="!auto.enabled" class="btn btn-lg btn-block btn-raised btn-success" ng-disabled="rolling" ng-click="roll()">
+                            <span ng-if="!rolling">Roll dice</span>
+                            <span ng-if="rolling"><i class="fa fa-spin fa-circle-o-notch"></i> Rolling...</span>
+
+                        </button>
+
+                        <button ng-if="auto.enabled" class="btn btn-lg btn-block btn-raised btn-success" ng-click="autoloop()">
+  
+                            <span ng-if="auto.loop"><i class="fa fa-spin fa-circle-o-notch"></i> Stop autobet</span>
+                            <span ng-if="!auto.loop">Start autobet</span>
+                        </button>
+                    </div>
+                    <div class="col-md-4">
+                        <button class="btn btn-lg btn-block btn-raised btn-warning" ng-disabled="rolling || auto.loop" ng-click="autobet()">
+                            Autobet
+                        </button>
+                    </div>
+        </div>
+        </div>
+    </div>
+
+    <div ng-if="logged" class="panel" style="width: 75%; margin-left: auto; margin-right: auto; padding-right: 25px; padding-left: 25px">
+    <div class="panel-body">
+        <h3>Your last rolls</h3>
+        <table class="table table-hover table-striped">
+            <tr>
+                <th>Roll</th>
+                <th>Win</th>
+                <th>Amount</th>
+                <th>Payout</th>
+                <th>Win amount</th>
+                <th>Date</th>
+            </tr>
+            <tr ng-repeat="bet in lastbets" ng-class="{success: bet.win, danger: !bet.win}">
+                <td>{{bet.roll}}</td>
+                <td>{{bet.win}}</td>
+                <td>{{bet.amount}} LSK</td>
+                <td>{{bet.payout}}</td>
+                <td>{{bet.winamount}} LSK</td>
+                <td>{{bet.date|date:'short'}}</td>
+            </tr>
+        </table>
+    </div>
+    </div>
+
+
+    <div ng-if="logged" class="panel" style="width: 75%; margin-left: auto; margin-right: auto; padding-right: 25px; padding-left: 25px">
+    <div class="panel-body">
+        <h3>Your stats</h3>
+        <table class="table">
+            <tr>
+                <th>Total rolls</th>
+                <th>Total wagered</th>
+                <th>Wins</th>
+                <th>Losts</th>
+            </tr>
+            <tr>
+                <td>{{profile.stats.lisk.rolls}}</td>
+                <td>{{profile.stats.lisk.wagered}} LSK</td>
+                <td>{{profile.stats.lisk.wins}}</td>
+                <td>{{profile.stats.lisk.losts}}</td>
+            </tr>
+        </table>
+        </table>
+    </div>
+    </div>
+
+    <div class="panel" style="width: 75%; margin-left: auto; margin-right: auto; padding-right: 25px; padding-left: 25px">
+    <div class="panel-body">
+        <h3>Site stats</h3>
+        <table class="table">
+            <tr>
+                <th>Total rolls</th>
+                <th>Total wagered</th>
+                <th>Wins</th>
+                <th>Losts</th>
+                <th>Users</th>
+            </tr>
+            <tr>
+                <td>{{stats.lisk.rolls}}</td>
+                <td>{{stats.lisk.wagered}} LSK</td>
+                <td>{{stats.lisk.wins}}</td>
+                <td>{{stats.lisk.losts}}</td>
+                <td>{{stats.users}}</td>
+            </tr>
+        </table>
+    </div>
+    </div>
+</div>

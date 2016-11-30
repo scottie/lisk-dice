@@ -1,0 +1,36 @@
+{
+  "name": "shiftdice",
+  "description": "",
+  "main": "",
+  "authors": [
+    "Davide Gessa"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "frontend/bower_components/",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-cookies": "^1.5.3",
+    "angular-mocks": "^1.5.3",
+    "angular-gettext": "^2.2.1",
+    "angular-recaptcha": "^3.0.3",
+    "angular-resource": "^1.5.3",
+    "bootstrap": "^3.3.6",
+    "moment": "momentjs#^2.15.1",
+    "angular-route": "^1.5.3",
+    "jquery": "^2.2.3",
+    "angular": "^1.5.4",
+    "angular-loading-bar": "^0.8.0",
+    "angular-simple-logger": "^0.1.7",
+    "bootstrap-material-design": "^0.5.10",
+    "angular-animate": "^1.5.8",
+    "snackbarjs": "^1.1.0"
+  }
+}

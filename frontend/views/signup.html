@@ -1,0 +1,28 @@
+<div class="panel" style="width: 60%; margin-left: auto; margin-right: auto">
+	<div class="panel-body row">
+		<div class="col-md-3"></div>
+		<div class="col-md-6">
+				<h2>Signup</h2>
+				<div class="alert alert-danger" ng-if="error == 'ES1'">Email already registered</div>
+				<div class="alert alert-danger" ng-if="error == 'ES2'">Invalid email</div>
+				<div class="alert alert-danger" ng-if="error == 'ES3'">Password should be longer than 8 characters</div>
+				<div class="alert alert-danger" ng-if="error == 'XS1'">Password mismatch</div>
+
+				<div class="form-group">
+					<input placeholder="Email" type="text" class="form-control" id="inputMail" ng-model="signup.email" />
+				</div>
+				<div class="form-group">
+					<input placeholder="Password" type="password" class="form-control" id="inputPassword" ng-model="signup.password" />
+				</div>
+				<div class="form-group">
+					<input placeholder="Repeat password"  type="password" class="form-control" id="inputPassword2" ng-model="signup.password2" />
+				</div>
+
+
+				<div class="form-group" align="center">
+					<a class="btn btn-raised btn-primary" ng-click="signupDo()" translate>Signup</a>
+				</div>
+		</div>
+		<div class="col-md-3"></div>
+	</div>
+</div>

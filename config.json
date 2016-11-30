@@ -1,0 +1,35 @@
+{
+	"coin": "lisk",
+	"auth_secret": "omg this is super secret text!",
+	"mongo": "mongodb://localhost:27017/liskdice",
+	"api": {
+		"recaptcha": {
+			"key": ""
+		}
+	},
+	"node": {
+		"shift": "localhost:9305",
+		"lisk": "localhost:8000",
+		"ark": "localhost:8022"
+	},
+	"wallet": {
+		"shift": {
+			"seed": "",
+			"address": ""
+		},
+		"lisk": {
+			"seed": "",
+			"address": ""
+		},
+		"ark": {
+			"seed": "",
+			"address": ""
+		}
+	},
+	"minconf": 30,
+	"mindeposit": 5.0,
+	"minbet": 0.01,
+	"maxbet": 2.0,
+	"minwithdraw": 5.0,
+	"withdrawfee": 0.3
+}
