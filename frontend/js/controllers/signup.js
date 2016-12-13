@@ -21,9 +21,9 @@ shiftdiceControllers.controller ('SignupCtrl', ['config', '$scope', '$http', '$w
 			
 			$scope.error = '';
 			
-			$http.post ('/api/signup', $scope.signup).success (function (data) {
+			$http.post ('/api/signup', $scope.signup).then (function (data) {
 				$location.path ('/login').search ({signup: 'true'});
-			}).error (function (data) {
+			}, function (data) {
 				$scope.error = data.error;		
 			});
 		};

@@ -13,7 +13,7 @@ shiftdiceControllers.controller ('LoginCtrl', ['config', '$scope', '$http', '$wi
 			$scope.error = '';
 			$scope.justsign = false;
 			
-			$http.post ('/api/login', $scope.login).success (function (data) {
+			$http.post ('/api/login', $scope.login).then (function (data) {
 				var expireDate = new Date();
 				expireDate.setDate(expireDate.getDate() + 1);
 
@@ -21,7 +21,7 @@ shiftdiceControllers.controller ('LoginCtrl', ['config', '$scope', '$http', '$wi
 				$cookies.put ('email', data.email); //, {'expires': expireDate});
 				
 				$location.path ('/');
-			}).error (function (data) {
+			}, function (data) {
 				$scope.error = data.error;
 			});
 		};

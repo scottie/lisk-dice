@@ -35,7 +35,7 @@ shiftdiceControllers.controller ('HomeCtrl', ['config', '$scope', '$http', '$win
 
 		/* Stats */
 		$scope.updateStats = function () {
-			$http.get ('/api/stats').success (function (data) {
+			$http.get ('/api/stats').then (function (data) {
 				$scope.stats = data;
 			});
 		};
@@ -46,7 +46,7 @@ shiftdiceControllers.controller ('HomeCtrl', ['config', '$scope', '$http', '$win
 
 		/* */
 		$scope.updateProfile = function () {
-			$http.get ('/api/profile').success (function (data) {
+			$http.get ('/api/profile').then (function (data) {
 				$scope.profile = data;
 				$scope.balance = data.balances.lisk;
 				
@@ -57,13 +57,13 @@ shiftdiceControllers.controller ('HomeCtrl', ['config', '$scope', '$http', '$win
 		var int_profile = $interval (function () { $scope.updateProfile () }, 5000);
 
 		/* Last rolls */
-		$http.get ('/api/profile/lastbets').success (function (data) {
+		$http.get ('/api/profile/lastbets').then (function (data) {
 			$scope.lastbets = data;
 		});
 
 		/* Withdraw */
 		$scope.withdrawReload = function () {
-			$http.get ('/api/profile/withdraws').success (function (data) {
+			$http.get ('/api/profile/withdraws').then (function (data) {
 				$scope.withdraws = data;
 			});
 		};
@@ -76,16 +76,16 @@ shiftdiceControllers.controller ('HomeCtrl', ['config', '$scope', '$http', '$win
 		};
 
 		$scope.withdrawSend = function () {
-			$http.post ('/api/profile/withdraw', $scope.withdraw).success (function (data) {
+			$http.post ('/api/profile/withdraw', $scope.withdraw).then (function (data) {
 				$scope.withdrawstat = { error: data.error, status: 2, txid: data.txid };
-			}).error (function (data) {
+			}, function (data) {
 				$scope.withdrawstat = { error: data.error, status: 1 };
 			});
 		};
 
 		/* Deposit */
 		$scope.depositReload = function () {
-			$http.get ('/api/profile/deposits').success (function (data) {
+			$http.get ('/api/profile/deposits').then (function (data) {
 				$scope.deposits = data;
 			});
 		};
@@ -170,7 +170,7 @@ shiftdiceControllers.controller ('HomeCtrl', ['config', '$scope', '$http', '$win
 				return;
 			}
 
-			$http.post ('/api/bet', { amount: $scope.bet.amount, chance: $scope.bet.chance, over: $scope.bet.over, coin: 'lisk' }).success (function (data) {
+			$http.post ('/api/bet', { amount: $scope.bet.amount, chance: $scope.bet.chance, over: $scope.bet.over, coin: 'lisk' }).then (function (data) {
 				$scope.rolling = false;
 
 				if (data.bet.win) {
@@ -186,7 +186,7 @@ shiftdiceControllers.controller ('HomeCtrl', ['config', '$scope', '$http', '$win
 					$scope.auto.number -= 1;
 					$timeout ($scope.roll, 1000);
 				}
-			}).error (function (data) {
+			}, function (data) {
 				$scope.rolling = false;
 				$scope.auto.loop = false;
 
