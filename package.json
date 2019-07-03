@@ -16,6 +16,12 @@
     "morgan": "^1.7.0",
     "request": "^2.75.0",
     "serve-static": "^1.11.1",
-    "waterfall-ya": "^0.7.2"
-  }
+    "waterfall-ya": "^0.7.2",
+    "snyk": "^1.189.0"
+  },
+  "scripts": {
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
+  },
+  "snyk": true
 }
