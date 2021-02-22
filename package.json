@@ -5,7 +5,7 @@
   "main": "diceserver.js",
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
-    "bitcore-mnemonic": "^1.1.1",
+    "bitcore-mnemonic": "^8.1.0",
     "body-parser": "^1.15.2",
     "bower": "^1.7.9",
     "colors": "^1.1.2",
